@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#131214">
+    <meta name="description"
+        content="ClimaX — a responsive weather dashboard with forecasts, air quality and local weather details.">
+    <title>ClimaX — Weather Dashboard</title>
+    <link rel="shortcut icon" href="images/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+    <header class="header">
+        <div class="container header-container">
+            <a href="#/current-location" class="logo" aria-label="ClimaX home"><img src="images/logo.png" width="364"
+                    height="58" alt="ClimaX"></a>
+            <div class="search-view" data-search-view aria-hidden="true">
+                <div class="search-wrapper">
+                    <button class="icon-btn search-back" type="button" aria-label="Close search" data-search-close><span
+                            class="m-icon">arrow_back</span></button>
+                    <span class="m-icon leading-icon" aria-hidden="true">search</span>
+                    <input type="search" name="search" placeholder="Search city..." class="search-field"
+                        autocomplete="off" data-search-field aria-label="Search city">
+                </div>
+                <div class="search-result" data-search-result></div>
+            </div>
+            <div class="header-actions">
+                <button class="icon-btn" type="button" aria-label="Open search" aria-expanded="false" data-search-open><span
+                        class="m-icon">search</span></button>
+                <a href="#/current-location" class="btn-primary has-state" data-current-location-btn><span
+                        class="m-icon">my_location</span><span class="span">Current Location</span></a>
+            </div>
+        </div>
+    </header>
+    <main>
+        <article class="container dashboard">
+            <div class="content-left">
+                <section class="section" aria-label="Current weather" data-current-weather></section>
+                <section class="section" aria-labelledby="forecast-label" data-5-day-forecast></section>
+            </div>
+            <div class="content-right">
+                <section class="section" aria-labelledby="highlights-label" data-highlights></section>
+                <section class="section" aria-labelledby="hourly-forecast" data-hourly-forecast></section>
+                <footer class="footer"><div>&copy;<span data-year></span> <img src="images/logo.png" width="72px" alt="ClimaX"></div><span>Stay informed. Stay prepared. Stay ahead with ClimaX.</span><span>ClimaX · Weather & air quality data powered by Open-Meteo</span></footer>
+            </div>
+            <div class="loading" data-loading aria-hidden="true">
+                <div class="spinner" role="status" aria-label="Loading weather"></div>
+            </div>
+        </article>
+    </main>
+    <section class="error-content" data-error-content aria-live="assertive" aria-hidden="true">
+        <div class="error-card">
+            <span class="m-icon error-icon">cloud_off</span>
+            <h2 class="heading">Oops!</h2>
+            <p class="body-1" data-error-message>Something went wrong.</p>
+            <div class="error-actions"><a href="#/current-location" class="btn-primary"><span class="span">Try Current
+                        Location</span></a><button class="btn-secondary" type="button" data-search-open-error>Search a
+                    City</button></div>
+        </div>
+    </section>
+    <script type="module" src="scripts/app.js"></script>
+    <script>document.querySelector('[data-year]').textContent = new Date().getFullYear();</script>
+</body>
+
+</html>
