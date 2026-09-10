@@ -651,7 +651,7 @@ article.container {
     color: var(--on-surface-variant);
     text-align: center;
 }
-.footer div{display: flex; gap: 5px;}
+
 .footer .body-3:last-child { display: flex; gap: 5px; }
 
 /* Loading + error */
@@ -713,13 +713,14 @@ article.container {
 .error-actions > * { min-width: 0; }
 
 /* Small phones */
-@media (min-width: 359px) {
+@media (min-width: 359px),( max-width: 350px) {
     .container { padding-inline: 12px; }
     .header { height: 68px; }
     .header .container { gap: 7px; }
     .logo img { width: 116px; }
     .icon-btn { width: 42px; height: 42px; }
     .header .btn-primary { width: 42px; height: 42px; padding: 0; }
+    .search-wrapper .leading-icon{ display: none;}
     main { height: calc(100dvh - 68px); }
     article.container { gap: 12px; padding-block: 10px 32px; }
     .content-left, .content-right { gap: 12px; }
@@ -727,11 +728,6 @@ article.container {
     .card-sm { padding: 13px; }
     .heading { font-size: 2.65rem; }
     .current-main .weather-icon { width: 58px; }
-    .forecast-card .card-item {
-        grid-template-columns: minmax(80px, 1fr) auto;
-    }
-    .forecast-card .card-item > .label-1 { text-align: right; }
-    .temp-range { grid-column: 1 / -1; text-align: right; }
     .highlight-list{grid-template-columns: 1fr 1fr;}
     .highlight-list .highlight-card.one,
     .highlight-list .highlight-card.two{
@@ -740,7 +736,7 @@ article.container {
     .highlight-card .wrapper > .m-icon,
     .highlight-card .m-icon {font-size: 40px; }
     .title-1 { font-size: 24px; }
-    .highlight-card .wrapper { gap: 40px; }
+    .highlight-card .wrapper { gap: 10px; place-items: right;}
     .highlight-card.one .card-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .highlight-card.two .card-list { gap: 10px; }
     .slider-container { margin-inline: -15px; padding-inline: 15px; }
