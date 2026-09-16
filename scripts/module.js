@@ -1,17 +1,34 @@
 'use strict';
 
 export const weatherIcons = {
-    0: '01d',
-    1: '02d', 2: '02d', 3: '04d',
-    45: '50d', 48: '50d',
-    51: '09d', 53: '09d', 55: '09d',
-    56: '09d', 57: '09d',
-    61: '10d', 63: '10d', 65: '10d',
-    66: '10d', 67: '10d',
-    71: '13d', 73: '13d', 75: '13d', 77: '13d',
-    80: '09d', 81: '09d', 82: '09d',
-    85: '13d', 86: '13d',
-    95: '11d', 96: '11d', 99: '11d'
+    0: 'clear',
+    1: 'mainly-clear',
+    2: 'partly-cloudy',
+    3: 'overcast',
+    45: 'fog',
+    48: 'rime-fog',
+    51: 'light-drizzle',
+    53: 'moderate-drizzle',
+    55: 'dense-drizzle',
+    56: 'light-freezing-drizzle',
+    57: 'dense-freezing-drizzle',
+    61: 'slight-rain',
+    63: 'moderate-rain',
+    65: 'heavy-rain',
+    66: 'light-freezing-rain',
+    67: 'heavy-freezing-rain',
+    71: 'slight-snow',
+    73: 'moderate-snow',
+    75: 'heavy-snow',
+    77: 'snow-grains',
+    80: 'slight-rain-showers',
+    81: 'moderate-rain-showers',
+    82: 'violent-rain-showers',
+    85: 'slight-snow-showers',
+    86: 'heavy-snow-showers',
+    95: 'thunderstorm',
+    96: 'thunderstorm-light-hail',
+    99: 'thunderstorm-heavy-hail'
 };
 
 export const weatherText = {
