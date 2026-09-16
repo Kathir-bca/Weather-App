@@ -56,10 +56,9 @@ function toggleSearch(open) {
     }
 }
 
-function icon(code, isDay = 1) {
-    const mapped = weatherIcons[code] || '01d';
-    const adjusted = isDay ? mapped : mapped.replace('d', 'n');
-    return `images/weather_icons/${adjusted}.png`;
+function icon(code) {
+    const mapped = weatherIcons[code] || weatherIcons[0];
+    return `images/weather_icons/${mapped}.png`;
 }
 
 function renderCurrent(data, location) {
@@ -79,7 +78,7 @@ function renderCurrent(data, location) {
                     <p class="heading">${Math.round(c.temperature_2m)}<sup>${unit.temperature_2m}</sup></p>
                     <p class="body-3 condition">${description}</p>
                 </div>
-                <img src="${icon(c.weather_code, c.is_day)}" alt="${description}" width="88" height="88" class="weather-icon">
+                <img src="${icon(c.weather_code)}" alt="${description}" width="88" height="88" class="weather-icon">
             </div>
             <ul class="meta-list">
                 <li class="meta-item"><span class="m-icon">calendar_today</span><p class="title-3 meta-text">${formatDate(c.time, data.timezone)}</p></li>
@@ -96,7 +95,7 @@ function renderForecast(data) {
         <div class="card card-lg forecast-card"><ul>
             ${Array.from({ length: count }, (_, i) => `
                 <li class="card-item">
-                    <div class="icon-wrapper"><img src="${icon(d.weather_code[i], 1)}" width="42" height="42" class="weather-icon" alt="${weatherText[d.weather_code[i]] || 'Weather'}"><p class="title-2">${Math.round(d.temperature_2m_max[i])}°</p></div>
+                    <div class="icon-wrapper"><img src="${icon(d.weather_code[i])}" width="42" height="42" class="weather-icon" alt="${weatherText[d.weather_code[i]] || 'Weather'}"><p class="title-2">${Math.round(d.temperature_2m_max[i])}°</p></div>
                     <p class="label-1">${formatDay(d.time[i], data.timezone)}</p>
                     <p class="temp-range">${Math.round(d.temperature_2m_min[i])}° / ${Math.round(d.temperature_2m_max[i])}°</p>
                 </li>`).join('')}
@@ -151,7 +150,7 @@ function renderHourly(data) {
     const cards = times.map((time, i) => `
         <li class="slider-item"><div class="card card-sm slider-card">
             <p class="body-3">${formatTime(time, data.timezone)}</p>
-            <img src="${icon(codes[i], 1)}" alt="${weatherText[codes[i]] || 'Weather'}" width="48" height="48" class="weather-icon">
+            <img src="${icon(codes[i])}" alt="${weatherText[codes[i]] || 'Weather'}" width="48" height="48" class="weather-icon">
             <p class="body-3"><strong>${Math.round(temps[i])}°</strong></p>
             <p class="label-2">Rain ${probs[i] ?? 0}%</p>
         </div></li>`).join('');
