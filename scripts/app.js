@@ -65,8 +65,6 @@ function renderCurrent(data, location) {
     const c = data.current;
     const unit = data.current_units;
     const description = weatherText[c.weather_code] || 'Unknown conditions';
-    const date = new Date(c.time);
-
     els.currentWeather.innerHTML = `
         <div class="card card-lg current-weather-card">
             <div class="section-heading-row">
@@ -111,7 +109,7 @@ function renderHighlights(weather, air) {
 
     els.highlights.innerHTML = `
         <div class="card card-lg">
-            <div class="section-heading-row"><h2 class="title-2">Today's Highlights</h2><span class="updated">Live data</span></div>
+            <div class="section-heading-row"><h2 class="title-2" id="highlights-label">Today's Highlights</h2><span class="updated">Live data</span></div>
             <div class="highlight-list">
                 <div class="card card-sm highlight-card one">
                     <h3 class="title-3">Air Quality Index</h3>
@@ -170,7 +168,7 @@ function renderHourly(data) {
 function renderSearchResults(results) {
     const list = results.filter((item) => item.latitude != null && item.longitude != null);
     els.searchResult.classList.add('active');
-    els.searchResult.innerHTML = list.length ? `<ul class="view-list">${list.map((item, index) => `
+    els.searchResult.innerHTML = list.length ? `<ul class="view-list">${list.map((item) => `
         <li class="view-item"><span class="m-icon">location_on</span><div><p class="item-title">${escapeHtml(item.name)}</p><p class="label-2 item-subtitle">${escapeHtml([item.admin1, item.country].filter(Boolean).join(', '))}</p></div><a href="#/weather?lat=${item.latitude}&lon=${item.longitude}&name=${encodeURIComponent(item.name)}&country=${encodeURIComponent(item.country || '')}" class="item-link" data-search-link aria-label="Show weather for ${escapeHtml(item.name)}"></a></li>`).join('')}</ul>` : '<div class="search-empty">No matching cities found.</div>';
 }
 
