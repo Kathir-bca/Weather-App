@@ -1,17 +1,34 @@
 'use strict';
 
 export const weatherIcons = {
-    0: '01d',
-    1: '02d', 2: '02d', 3: '04d',
-    45: '50d', 48: '50d',
-    51: '09d', 53: '09d', 55: '09d',
-    56: '09d', 57: '09d',
-    61: '10d', 63: '10d', 65: '10d',
-    66: '10d', 67: '10d',
-    71: '13d', 73: '13d', 75: '13d', 77: '13d',
-    80: '09d', 81: '09d', 82: '09d',
-    85: '13d', 86: '13d',
-    95: '11d', 96: '11d', 99: '11d'
+    0: '0-clear-sky',
+    1: '1-mainly-clear',
+    2: '2-partly-cloudy',
+    3: '3-overcast',
+    45: '45-fog',
+    48: '48-rime-fog',
+    51: '51-light-drizzle',
+    53: '53-moderate-drizzle',
+    55: '55-dense-drizzle',
+    56: '56-light-freezing-drizzle',
+    57: '57-dense-freezing-drizzle',
+    61: '61-slight-rain',
+    63: '63-moderate-rain',
+    65: '65-heavy-rain',
+    66: '66-light-freezing-rain',
+    67: '67-heavy-freezing-rain',
+    71: '71-slight-snowfall',
+    73: '73-moderate-snowfall',
+    75: '75-heavy-snowfall',
+    77: '77-snow-grains',
+    80: '80-slight-rain-showers',
+    81: '81-moderate-rain-showers',
+    82: '82-violent-rain-showers',
+    85: '85-slight-snow-showers',
+    86: '86-heavy-snow-showers',
+    95: '95-thunderstorm',
+    96: '96-thunderstorm-light-hail',
+    99: '99-thunderstorm-heavy-hail'
 };
 
 export const weatherText = {
