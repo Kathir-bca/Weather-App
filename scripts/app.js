@@ -56,17 +56,23 @@ function toggleSearch(open) {
     }
 }
 
-function icon(code, isDay = 1) {
-    const mapped = weatherIcons[code] || '01d';
-    const adjusted = isDay ? mapped : mapped.replace('d', 'n');
-    return `images/weather_icons/${adjusted}.png`;
+const DAY_NIGHT_BASES = new Set(['clear', 'mainly-clear', 'partly-cloudy']);
+
+function getWeatherIconName(code, isDay = 1) {
+    const base = weatherIcons[Number(code)];
+    if (!base) return isDay ? 'clear-day' : 'clear-night';
+    return DAY_NIGHT_BASES.has(base) ? `${base}-${isDay ? 'day' : 'night'}` : base;
+}
+
+function weatherIcon(code, isDay = 1, label = 'Weather') {
+    const iconName = getWeatherIconName(code, isDay);
+    return `<svg class="weather-icon" viewBox="0 0 64 64" role="img" aria-label="${escapeHtml(label)}" focusable="false"><use href="images/weather_icons/weather-icons.svg#${iconName}"></use></svg>`;
 }
 
 function renderCurrent(data, location) {
     const c = data.current;
     const unit = data.current_units;
     const description = weatherText[c.weather_code] || 'Unknown conditions';
-    const date = new Date(c.time);
 
     els.currentWeather.innerHTML = `
         <div class="card card-lg current-weather-card">
@@ -79,7 +85,7 @@ function renderCurrent(data, location) {
                     <p class="heading">${Math.round(c.temperature_2m)}<sup>${unit.temperature_2m}</sup></p>
                     <p class="body-3 condition">${description}</p>
                 </div>
-                <img src="${icon(c.weather_code, c.is_day)}" alt="${description}" width="88" height="88" class="weather-icon">
+                ${weatherIcon(c.weather_code, c.is_day, description)}
             </div>
             <ul class="meta-list">
                 <li class="meta-item"><span class="m-icon">calendar_today</span><p class="title-3 meta-text">${formatDate(c.time, data.timezone)}</p></li>
@@ -96,7 +102,7 @@ function renderForecast(data) {
         <div class="card card-lg forecast-card"><ul>
             ${Array.from({ length: count }, (_, i) => `
                 <li class="card-item">
-                    <div class="icon-wrapper"><img src="${icon(d.weather_code[i], 1)}" width="42" height="42" class="weather-icon" alt="${weatherText[d.weather_code[i]] || 'Weather'}"><p class="title-2">${Math.round(d.temperature_2m_max[i])}°</p></div>
+                    <div class="icon-wrapper">${weatherIcon(d.weather_code[i], 1, weatherText[d.weather_code[i]] || 'Weather')}<p class="title-2">${Math.round(d.temperature_2m_max[i])}°</p></div>
                     <p class="label-1">${formatDay(d.time[i], data.timezone)}</p>
                     <p class="temp-range">${Math.round(d.temperature_2m_min[i])}° / ${Math.round(d.temperature_2m_max[i])}°</p>
                 </li>`).join('')}
@@ -144,6 +150,7 @@ function renderHourly(data) {
     const times = h.time.slice(start, start + 12);
     const temps = h.temperature_2m.slice(start, start + 12);
     const codes = h.weather_code.slice(start, start + 12);
+    const dayStates = h.is_day?.slice(start, start + 12) || times.map(() => 1);
     const winds = h.wind_speed_10m.slice(start, start + 12);
     const directions = h.wind_direction_10m.slice(start, start + 12);
     const probs = h.precipitation_probability.slice(start, start + 12);
@@ -151,7 +158,7 @@ function renderHourly(data) {
     const cards = times.map((time, i) => `
         <li class="slider-item"><div class="card card-sm slider-card">
             <p class="body-3">${formatTime(time, data.timezone)}</p>
-            <img src="${icon(codes[i], 1)}" alt="${weatherText[codes[i]] || 'Weather'}" width="48" height="48" class="weather-icon">
+            ${weatherIcon(codes[i], dayStates[i], weatherText[codes[i]] || 'Weather')}
             <p class="body-3"><strong>${Math.round(temps[i])}°</strong></p>
             <p class="label-2">Rain ${probs[i] ?? 0}%</p>
         </div></li>`).join('');
